@@ -1,0 +1,21 @@
+{
+  "name": "nftscope",
+  "version": "0.1.0",
+  "description": "NFT collection analysis and tracking tool",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "keywords": ["nft", "blockchain", "ethereum", "analysis", "crypto"],
+  "author": "CassiusDe",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.18.2",
+    "axios": "^1.4.0",
+    "dotenv": "^16.1.4"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22"
+  }
+}
