@@ -14,7 +14,8 @@ app.get('/', (req, res) => {
     status: 'running',
     endpoints: [
       '/collections/:contract',
-      '/collections/:contract/stats'
+      '/collections/:contract/stats',
+      '/collections/:contract/rarity'
     ]
   });
 });

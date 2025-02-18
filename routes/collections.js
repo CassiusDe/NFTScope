@@ -1,5 +1,7 @@
 const express = require('express');
 const axios = require('axios');
+const RarityCalculator = require('../utils/rarity');
+const { generateMockCollection } = require('../utils/mockData');
 const router = express.Router();
 
 // Get collection info
@@ -51,6 +53,38 @@ router.get('/:contract/stats', async (req, res) => {
     res.status(500).json({
       success: false,
       error: 'Failed to fetch collection stats'
+    });
+  }
+});
+
+// Get collection rarity analysis
+router.get('/:contract/rarity', async (req, res) => {
+  try {
+    const { contract } = req.params;
+    const { limit = 20 } = req.query;
+
+    // Generate mock collection data
+    const mockNFTs = generateMockCollection(1000);
+
+    // Calculate rarity
+    const calculator = new RarityCalculator();
+    const nftsWithRarity = calculator.processCollection(mockNFTs);
+
+    // Return top items by rarity
+    const topRare = nftsWithRarity.slice(0, parseInt(limit));
+
+    res.json({
+      success: true,
+      data: {
+        total_items: nftsWithRarity.length,
+        top_rare: topRare,
+        trait_stats: calculator.getTraitStats()
+      }
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to calculate rarity'
     });
   }
 });
