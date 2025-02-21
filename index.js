@@ -1,5 +1,6 @@
 const express = require('express');
 const collectionsRouter = require('./routes/collections');
+const database = require('./database/db');
 require('dotenv').config();
 
 const app = express();
@@ -26,6 +27,14 @@ app.get('/health', (req, res) => {
 
 app.use('/collections', collectionsRouter);
 
-app.listen(PORT, () => {
-  console.log(`NFTScope server running on port ${PORT}`);
-});
+// Initialize database and start server
+database.connect()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`NFTScope server running on port ${PORT}`);
+    });
+  })
+  .catch(err => {
+    console.error('Failed to initialize database:', err);
+    process.exit(1);
+  });

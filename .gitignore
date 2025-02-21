@@ -8,3 +8,5 @@ CLAUDE.md
 dist/
 *.tgz
 coverage/
+*.db
+database/*.db
