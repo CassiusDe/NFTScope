@@ -1,5 +1,6 @@
 const express = require('express');
 const collectionsRouter = require('./routes/collections');
+const pricesRouter = require('./routes/prices');
 const database = require('./database/db');
 require('dotenv').config();
 
@@ -16,7 +17,9 @@ app.get('/', (req, res) => {
     endpoints: [
       '/collections/:contract',
       '/collections/:contract/stats',
-      '/collections/:contract/rarity'
+      '/collections/:contract/rarity',
+      '/prices/:contract/history',
+      '/prices/:contract/analytics'
     ]
   });
 });
@@ -26,6 +29,7 @@ app.get('/health', (req, res) => {
 });
 
 app.use('/collections', collectionsRouter);
+app.use('/prices', pricesRouter);
 
 // Initialize database and start server
 database.connect()
